@@ -1,0 +1,77 @@
+{% extends 'messageboard/layout.html' %}
+
+{% block content %}
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'topics:topic-list' %}">Message Board</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{% url 'topics:topic-create' %}">Create a New Topic</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'accounts:profile' %}">{{ user.username }}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Application -->
+    <div class="container">
+        <!-- Topic -->
+        <h1 class="page-header">Message Board</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>{{ latest.title }}</h2>
+                <p class="text-muted">{{ latest.created_at }}</p>
+                <hr>
+                {% for comment in comments %}
+                    <p>{{ comment.author }}</p>
+                    <p class="text-muted">{{ comment.created_at }}</p>
+                    <h4>{{ comment.text }}</h4>
+                    <hr>
+                {% endfor %}
+                {% if show_form %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary" type="submit">Add Comment</button>
+                </form>
+                {% endif %}
+            </div>
+            <!-- /Topic -->
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="well">
+                    <ul>
+                    {% for topic in topics %}
+                        <li>
+                            <a href="{% url 'topics:topic-detail' topic.id %}">{{ topic.title }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /Sidebar -->
+        </div>
+    </div>
+{% endblock %}

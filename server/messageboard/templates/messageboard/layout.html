@@ -1,0 +1,20 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Board</title>
+
+    <link rel="stylesheet" href="{% static 'messageboard/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'messageboard/css/style.css' %}">
+</head>
+<body>
+    {% block content %}
+        <!-- Application View -->
+    {% endblock %}
+    <script
+			  src="https://code.jquery.com/jquery-2.2.4.min.js"
+			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous"></script>
+    <script src="{% static 'messageboard/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

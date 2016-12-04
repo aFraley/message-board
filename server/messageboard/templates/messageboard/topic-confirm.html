@@ -1,0 +1,14 @@
+{% extends 'messageboard/layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-header">{{ topic.title }}</h1>
+        <p class="alert alert-danger">You are about to delete this topic. Are you sure?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">DELETE</button>
+        </form>
+        <a href="{% url 'topics:topic-list' %}" class="btn btn-info" type="button">CANCEL</a>
+    </div>
+
+{% endblock %}
